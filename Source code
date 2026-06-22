@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>K. Karunya Priya — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0e0a1a;
+    --surface:#171228;
+    --surface-2:#1f1834;
+    --border:rgba(255,255,255,0.09);
+    --border-strong:rgba(255,255,255,0.18);
+    --text:#f1edfb;
+    --text-muted:#a89bc7;
+    --purple:#a374ff;
+    --purple-deep:#7c3aed;
+    --purple-dim:rgba(163,116,255,0.14);
+    --purple-border:rgba(163,116,255,0.38);
+    --radius:16px;
+    --maxw:1100px;
+  }
+  [data-theme="light"]{
+    --bg:#faf8ff;
+    --surface:#ffffff;
+    --surface-2:#f3eefc;
+    --border:rgba(20,10,40,0.09);
+    --border-strong:rgba(20,10,40,0.18);
+    --text:#190f2e;
+    --text-muted:#6c5d88;
+    --purple:#7c3aed;
+    --purple-deep:#5b21b6;
+    --purple-dim:rgba(124,58,237,0.08);
+    --purple-border:rgba(124,58,237,0.3);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;background:var(--bg);color:var(--text);
+    font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;
+    transition:background .3s ease, color .3s ease;
+  }
+  ::selection{background:var(--purple-dim);color:var(--text);}
+  a{color:inherit;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px;}
+  h1,h2,h3{font-family:'Space Grotesk',sans-serif;margin:0;letter-spacing:-0.01em;}
+  :focus-visible{outline:2px solid var(--purple);outline-offset:3px;}
+  img{max-width:100%;display:block;}
+
+  /* nav */
+  .nav{position:fixed;top:0;left:0;right:0;z-index:50;background:color-mix(in srgb, var(--bg) 78%, transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);}
+  .nav__inner{max-width:var(--maxw);margin:0 auto;padding:16px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px;}
+  .nav__logo{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:16px;text-decoration:none;white-space:nowrap;}
+  .nav__right{display:flex;align-items:center;gap:30px;min-width:0;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
+  .nav__right::-webkit-scrollbar{display:none;}
+  .theme-control{display:flex;align-items:center;gap:10px;flex:none;}
+  .theme-control__label{font-size:13px;color:var(--text-muted);}
+  .switch{position:relative;width:42px;height:24px;background:var(--surface-2);border:1px solid var(--border-strong);border-radius:999px;cursor:pointer;flex:none;padding:0;}
+  .switch__knob{position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:var(--purple);transition:transform .25s ease;}
+  [data-theme="light"] .switch__knob{transform:translateX(18px);}
+  .nav__links{display:flex;align-items:center;gap:24px;list-style:none;margin:0;padding:0;flex:none;}
+  .nav__links a{font-size:14px;color:var(--text-muted);text-decoration:none;white-space:nowrap;transition:color .2s ease;}
+  .nav__links a:hover{color:var(--text);}
+
+  /* hero */
+  .hero{position:relative;min-height:92vh;display:flex;align-items:center;padding:130px 0 60px;overflow:hidden;}
+  .hero__bg{position:absolute;inset:0;background-image:url('data:image/jpeg;base64,<...your embedded photo, omitted here for length...>');background-size:cover;background-position:center;z-index:0;}
+  .hero__overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg, rgba(14,10,26,0.55) 0%, rgba(14,10,26,0.82) 65%, var(--bg) 100%), linear-gradient(120deg, rgba(124,58,237,0.5), rgba(14,10,26,0.35));}
+  .hero__inner{position:relative;z-index:2;}
+  .hero__eyebrow{font-size:14px;font-weight:500;letter-spacing:.03em;color:#d9c7ff;margin:0 0 16px;}
+  .hero h1{font-size:clamp(36px,6vw,60px);line-height:1.06;font-weight:700;color:#ffffff;}
+  .hero h1 .accent{background:linear-gradient(90deg,#c9a3ff,#7c3aed);-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .hero__bio{font-size:16.5px;line-height:1.8;color:rgba(255,255,255,0.78);max-width:560px;margin:22px 0 0;}
+  .hero__cta{display:flex;gap:16px;flex-wrap:wrap;margin-top:36px;}
+
+  .scroll-cue{position:absolute;bottom:34px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;z-index:2;color:rgba(255,255,255,0.7);text-decoration:none;}
+  .scroll-cue span{font-size:11.5px;letter-spacing:.06em;}
+  .scroll-cue svg{animation:drift 1.8s ease-in-out infinite;}
+  @keyframes drift{0%,100%{transform:translateY(0);}50%{transform:translateY(6px);}}
+
+  /* sections generic */
+  .section{padding:96px 0;border-top:1px solid var(--border);}
+  .section__head{margin-bottom:44px;text-align:center;}
+  .section__head h2{font-size:clamp(26px,4vw,36px);font-weight:600;}
+  .section__head p{color:var(--text-muted);font-size:15px;margin:10px 0 0;}
+
+  /* buttons */
+  .btn{font-family:'Inter',sans-serif;font-size:14px;font-weight:500;display:inline-flex;align-items:center;gap:9px;padding:13px 22px;border-radius:11px;text-decoration:none;border:1px solid var(--border-strong);transition:all .2s ease;cursor:pointer;}
+  .btn--primary{background:linear-gradient(90deg,var(--purple-deep),var(--purple));color:#ffffff;border:none;}
+  .btn--primary:hover{filter:brightness(1.08);}
+  .btn--ghost-light{background:rgba(255,255,255,0.08);color:#ffffff;border:1px solid rgba(255,255,255,0.4);backdrop-filter:blur(6px);}
+  .btn--ghost-light:hover{background:rgba(255,255,255,0.16);}
+  .btn--ghost{color:var(--text);background:transparent;border:1px solid var(--border-strong);}
+  .btn--ghost:hover{background:var(--surface-2);}
+
+  /* about */
+  .about__grid{display:grid;grid-template-columns:1.3fr 1fr;gap:26px;align-items:start;}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:32px;}
+  .bio-card p{font-size:15.5px;line-height:1.85;color:var(--text-muted);margin:0;}
+  .bio-card p:not(:last-child){margin-bottom:16px;}
+  .bio-card p:first-child{color:var(--text);}
+  .skills__group:not(:last-child){margin-bottom:24px;}
+  .skills__label{font-size:12px;font-weight:500;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;margin:0 0 12px;}
+  .skills__pills{display:flex;flex-wrap:wrap;gap:8px;}
+  .pill{font-size:13px;padding:6px 13px;border-radius:999px;background:var(--purple-dim);color:var(--purple);}
+
+  /* education */
+  .education__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  .edu-card{background:var(--surface);border:1.5px solid var(--purple-border);border-radius:var(--radius);padding:30px 22px;text-align:center;}
+  .edu-card h3{font-size:18.5px;font-weight:600;margin-bottom:18px;line-height:1.3;}
+  .edu-row{display:flex;align-items:center;justify-content:center;gap:8px;font-size:13.5px;color:var(--text-muted);margin-bottom:8px;}
+  .edu-row:last-child{margin-bottom:0;}
+  .edu-row svg{flex:none;color:var(--purple);}
+
+  /* experience */
+  .exp-card{display:flex;gap:32px;align-items:stretch;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:32px;}
+  .exp-card__text{flex:1.3;}
+  .exp-card__role{font-size:20px;font-weight:600;margin:0 0 6px;}
+  .exp-card__company{font-size:14px;color:var(--purple);margin:0 0 4px;font-weight:500;}
+  .exp-card__dates{font-size:13px;color:var(--text-muted);margin:0 0 20px;}
+  .exp-card ul{margin:0;padding-left:20px;}
+  .exp-card li{font-size:15px;line-height:1.85;color:var(--text-muted);}
+  .exp-card li:not(:last-child){margin-bottom:10px;}
+  .exp-card li::marker{color:var(--purple);}
+  .exp-card__media{flex:1;border-radius:12px;overflow:hidden;min-height:240px;}
+  .exp-card__media img{width:100%;height:100%;object-fit:cover;}
+
+  /* projects */
+  .projects__grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+  .proj-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:transform .25s ease, border-color .25s ease;}
+  .proj-card:hover{transform:translateY(-4px);border-color:var(--purple-border);}
+  .proj-card__img{width:100%;aspect-ratio:16/10;overflow:hidden;}
+  .proj-card__img img{width:100%;height:100%;object-fit:cover;}
+  .proj-card__body{padding:24px;}
+  .proj-card__tag{display:inline-block;font-size:11.5px;font-weight:500;color:var(--purple);background:var(--purple-dim);padding:4px 11px;border-radius:7px;margin-bottom:13px;}
+  .proj-card h3{font-size:18px;font-weight:600;margin-bottom:9px;}
+  .proj-card p{font-size:14.5px;line-height:1.65;color:var(--text-muted);margin:0 0 18px;}
+
+  /* contact */
+  .contact__head p.lead{color:var(--text-muted);font-size:16px;max-width:480px;margin:10px auto 0;line-height:1.7;}
+  .contact-form{max-width:520px;margin:0 auto 56px;text-align:left;}
+  .form-row{margin-bottom:18px;}
+  .form-row label{display:block;font-size:13px;color:var(--text-muted);margin-bottom:8px;}
+  .form-row input,.form-row textarea{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 14px;color:var(--text);font-family:'Inter',sans-serif;font-size:14.5px;resize:vertical;transition:border-color .2s ease;}
+  .form-row input:focus,.form-row textarea:focus{border-color:var(--purple);outline:none;}
+  .contact-form .btn{width:100%;justify-content:center;border:none;cursor:pointer;}
+  .form-note{font-size:12px;color:var(--text-muted);text-align:center;margin:12px 0 0;min-height:16px;}
+  .connect{text-align:center;}
+  .connect__label{font-size:13px;color:var(--text-muted);margin:0 0 18px;}
+  .social-row{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;}
+
+  /* footer */
+  .footer-block{border-top:1px solid var(--border);padding:32px 0;text-align:center;}
+  .footer-line{font-size:13px;color:var(--text-muted);margin:0 0 10px;}
+  .footer-tag{font-family:'Space Grotesk',sans-serif;font-size:14px;color:var(--text);font-weight:500;margin:0 0 10px;}
+  .footer-copy{font-size:12px;color:var(--text-muted);margin:0;}
+
+  .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  @media (max-width:760px){
+    .about__grid{grid-template-columns:1fr;}
+    .education__grid{grid-template-columns:1fr;}
+    .projects__grid{grid-template-columns:1fr;}
+    .exp-card{flex-direction:column;}
+    .nav__inner{padding:14px 20px;}
+    .theme-control__label{display:none;}
+    .nav__links{gap:14px;}
+    .nav__links a{font-size:12.5px;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto;}
+    .scroll-cue svg{animation:none;}
+    .proj-card:hover{transform:none;}
+  }
+</style>
+</head>
+<body data-theme="dark">
+
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="#home" class="nav__logo">K. Karunya Priya</a>
+    <div class="nav__right">
+      <div class="theme-control">
+        <span class="theme-control__label">Theme</span>
+        <button class="switch" id="themeToggle" role="switch" aria-checked="false" aria-label="Toggle light and dark theme">
+          <span class="switch__knob"></span>
+        </button>
+      </div>
+      <ul class="nav__links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<section class="hero" id="home">
+  <div class="hero__bg"></div>
+  <div class="hero__overlay"></div>
+  <div class="wrap hero__inner">
+    <p class="hero__eyebrow">Aspiring Software Engineer · AI &amp; Data Science Enthusiast</p>
+    <h1>K. Karunya Priya<br><span class="accent">building at the edge of code &amp; data</span></h1>
+    <p class="hero__bio">Enthusiastic learner and problem-solver working at the intersection of technology and people — turning structured communication and teamwork into real outcomes.</p>
+    <div class="hero__cta">
+      <a href="#projects" class="btn btn--primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        View projects
+      </a>
+      <a href="#contact" class="btn btn--ghost-light">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+        Get in touch
+      </a>
+    </div>
+  </div>
+  <a href="#about" class="scroll-cue">
+    <span>scroll</span>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+  </a>
+</section>
+
+<section class="section" id="about">
+  <div class="wrap">
+    <div class="section__head reveal">
+      <h2>About me</h2>
+    </div>
+    <div class="about__grid">
+      <div class="card bio-card reveal">
+        <p>I am an enthusiastic learner and problem-solver with a strong interest in technology and operations. My journey has given me hands-on experience in client coordination, workflow management, and digital tools, where I've learned how structured communication and teamwork drive successful outcomes.</p>
+        <p>I enjoy working at the intersection of technology and people — whether it's managing sessions smoothly, analyzing processes, or finding practical solutions to challenges. My exposure to tools like dashboards, portals, and collaboration platforms has strengthened my ability to organize, monitor, and deliver results efficiently.</p>
+        <p>Beyond technical skills, I value professional etiquette, adaptability, and collaboration, which help me contribute meaningfully in team environments. I see every challenge as an opportunity to learn and every project as a chance to grow.</p>
+        <p>I aspire to be part of teams where innovation, discipline, and impact come together, and where I can continue building both my technical expertise and professional confidence.</p>
+      </div>
+      <div class="card reveal">
+        <div class="skills__group">
+          <p class="skills__label">Languages</p>
+          <div class="skills__pills">
+            <span class="pill">Python</span><span class="pill">Java</span><span class="pill">JavaScript</span>
+          </div>
+        </div>
+        <div class="skills__group">
+          <p class="skills__label">Frameworks &amp; tools</p>
+          <div class="skills__pills">
+            <span class="pill">React</span><span class="pill">Node.js</span><span class="pill">Bootstrap</span><span class="pill">MySQL</span><span class="pill">MongoDB</span><span class="pill">Kaggle</span>
+          </div>
+        </div>
+        <div class="skills__group">
+          <p class="skills__label">Concepts</p>
+          <div class="skills__pills">
+            <span class="pill">AI</span><span class="pill">Data Science</span><span class="pill">Agile workflows</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="education">
+  <div class="wrap">
+    <div class="section__head reveal">
+      <h2>Education</h2>
+    </div>
+    <div class="education__grid">
+      <div class="edu-card reveal">
+        <h3>Bachelor of Computer Applications</h3>
+        <div class="edu-row">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          2024 – 2027
+        </div>
+        <div class="edu-row">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1M9 13h1M14 9h1M14 13h1M9 21v-4h6v4"/></svg>
+          IFHE, Hyderabad
+        </div>
+      </div>
+      <div class="edu-card reveal">
+        <h3>Intermediate</h3>
+        <div class="edu-row">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          2021 – 2023
+        </div>
+        <div class="edu-row">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1M9 13h1M14 9h1M14 13h1M9 21v-4h6v4"/></svg>
+          Chaitanya Junior College, Madinaguda
+        </div>
+      </div>
+      <div class="edu-card reveal">
+        <h3>School</h3>
+        <div class="edu-row">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          Completed 2021
+        </div>
+        <div class="edu-row">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1M9 13h1M14 9h1M14 13h1M9 21v-4h6v4"/></svg>
+          St. Joseph's High School, Patancheru
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="experience">
+  <div class="wrap">
+    <div class="section__head reveal">
+      <h2>Experience</h2>
+    </div>
+    <div class="exp-card reveal">
+      <div class="exp-card__text">
+        <h3 class="exp-card__role">Client Operations Intern</h3>
+        <p class="exp-card__company">RKIT Labs</p>
+        <p class="exp-card__dates">May 2026 – Jun 2026</p>
+        <ul>
+          <li>Coordinated mentor–student sessions, ensuring smooth scheduling, reminders, and communication.</li>
+          <li>Monitored attendance, documented session flow, and escalated prolonged sessions to leads.</li>
+          <li>Used dashboards and portals for efficient tracking, resource management, and reporting.</li>
+          <li>Adapted quickly to challenges like delays, cancellations, and technical issues with flexible solutions.</li>
+          <li>Strengthened teamwork, problem-solving, and client relationship skills through daily scrum calls.</li>
+        </ul>
+      </div>
+      <div class="exp-card__media">
+        <img src="https://images.unsplash.com/photo-1758873268745-dd2cf0d677b5?q=80&w=900&auto=format&fit=crop" alt="Team coordinating work together in an office" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="projects">
+  <div class="wrap">
+    <div class="section__head reveal">
+      <h2>Featured projects</h2>
+    </div>
+    <div class="projects__grid">
+      <div class="proj-card reveal">
+        <div class="proj-card__img"><img src="https://images.unsplash.com/photo-1576495199011-eb94736d05d6?q=80&w=800&auto=format&fit=crop" alt="College campus" loading="lazy"></div>
+        <div class="proj-card__body">
+          <span class="proj-card__tag">Web app</span>
+          <h3>College Management System</h3>
+          <p>A web app for managing students, faculty, and course administration in one place.</p>
+          <a class="btn btn--ghost" href="https://github.com/karunya-12345" target="_blank" rel="noopener">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55 0-.27-.01-1.16-.02-2.1-3.2.7-3.88-1.36-3.88-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.56-.29-5.25-1.28-5.25-5.7 0-1.26.45-2.29 1.18-3.1-.12-.29-.51-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.06 11.06 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.24 2.76.12 3.05.74.81 1.18 1.84 1.18 3.1 0 4.43-2.7 5.41-5.27 5.69.42.36.78 1.08.78 2.18 0 1.57-.01 2.84-.01 3.23 0 .3.2.66.79.55A10.52 10.52 0 0 0 23.5 12c0-6.35-5.15-11.5-11.5-11.5z"/></svg>
+            View on GitHub
+          </a>
+        </div>
+      </div>
+      <div class="proj-card reveal">
+        <div class="proj-card__img"><img src="https://images.unsplash.com/photo-1758522484646-c8694d1784fa?q=80&w=800&auto=format&fit=crop" alt="Online shopping with a laptop and card" loading="lazy"></div>
+        <div class="proj-card__body">
+          <span class="proj-card__tag">E-commerce</span>
+          <h3>E-Commerce Website</h3>
+          <p>A full-stack storefront with product catalog, cart, and checkout flow.</p>
+          <a class="btn btn--ghost" href="https://github.com/karunya-12345" target="_blank" rel="noopener">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55 0-.27-.01-1.16-.02-2.1-3.2.7-3.88-1.36-3.88-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.56-.29-5.25-1.28-5.25-5.7 0-1.26.45-2.29 1.18-3.1-.12-.29-.51-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.06 11.06 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.24 2.76.12 3.05.74.81 1.18 1.84 1.18 3.1 0 4.43-2.7 5.41-5.27 5.69.42.36.78 1.08.78 2.18 0 1.57-.01 2.84-.01 3.23 0 .3.2.66.79.55A10.52 10.52 0 0 0 23.5 12c0-6.35-5.15-11.5-11.5-11.5z"/></svg>
+            View on GitHub
+          </a>
+        </div>
+      </div>
+      <div class="proj-card reveal">
+        <div class="proj-card__img"><img src="https://images.unsplash.com/photo-1709880945165-d2208c6ad2ec?q=80&w=800&auto=format&fit=crop" alt="Calculator and laptop for finance tracking" loading="lazy"></div>
+        <div class="proj-card__body">
+          <span class="proj-card__tag">FinTech</span>
+          <h3>Smart Expense Tracker</h3>
+          <p>A personal finance tracker that logs spending and surfaces analytics on habits.</p>
+          <a class="btn btn--ghost" href="https://github.com/karunya-12345" target="_blank" rel="noopener">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55 0-.27-.01-1.16-.02-2.1-3.2.7-3.88-1.36-3.88-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.56-.29-5.25-1.28-5.25-5.7 0-1.26.45-2.29 1.18-3.1-.12-.29-.51-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.06 11.06 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.24 2.76.12 3.05.74.81 1.18 1.84 1.18 3.1 0 4.43-2.7 5.41-5.27 5.69.42.36.78 1.08.78 2.18 0 1.57-.01 2.84-.01 3.23 0 .3.2.66.79.55A10.52 10.52 0 0 0 23.5 12c0-6.35-5.15-11.5-11.5-11.5z"/></svg>
+            View on GitHub
+          </a>
+        </div>
+      </div>
+      <div class="proj-card reveal">
+        <div class="proj-card__img"><img src="https://images.unsplash.com/photo-1761322572550-967ea8c0bfd9?q=80&w=800&auto=format&fit=crop" alt="Document on a desk being reviewed" loading="lazy"></div>
+        <div class="proj-card__body">
+          <span class="proj-card__tag">AI / NLP</span>
+          <h3>AI Resume Analyzer</h3>
+          <p>An NLP-based tool that evaluates resumes and gives structured feedback.</p>
+          <a class="btn btn--ghost" href="https://github.com/karunya-12345" target="_blank" rel="noopener">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55 0-.27-.01-1.16-.02-2.1-3.2.7-3.88-1.36-3.88-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.56-.29-5.25-1.28-5.25-5.7 0-1.26.45-2.29 1.18-3.1-.12-.29-.51-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.06 11.06 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.24 2.76.12 3.05.74.81 1.18 1.84 1.18 3.1 0 4.43-2.7 5.41-5.27 5.69.42.36.78 1.08.78 2.18 0 1.57-.01 2.84-.01 3.23 0 .3.2.66.79.55A10.52 10.52 0 0 0 23.5 12c0-6.35-5.15-11.5-11.5-11.5z"/></svg>
+            View on GitHub
+          </a>
+        </div>
+      </div>
+      <div class="proj-card reveal">
+        <div class="proj-card__img"><img src="https://images.unsplash.com/photo-1641361777339-0ee075cf3ab4?q=80&w=800&auto=format&fit=crop" alt="Person stretching while wearing a fitness tracker" loading="lazy"></div>
+        <div class="proj-card__body">
+          <span class="proj-card__tag">Mobile</span>
+          <h3>Fitness Tracking App</h3>
+          <p>A mobile app for logging workouts and monitoring progress over time.</p>
+          <a class="btn btn--ghost" href="https://github.com/karunya-12345" target="_blank" rel="noopener">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55 0-.27-.01-1.16-.02-2.1-3.2.7-3.88-1.36-3.88-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.56-.29-5.25-1.28-5.25-5.7 0-1.26.45-2.29 1.18-3.1-.12-.29-.51-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.06 11.06 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.24 2.76.12 3.05.74.81 1.18 1.84 1.18 3.1 0 4.43-2.7 5.41-5.27 5.69.42.36.78 1.08.78 2.18 0 1.57-.01 2.84-.01 3.23 0 .3.2.66.79.55A10.52 10.52 0 0 0 23.5 12c0-6.35-5.15-11.5-11.5-11.5z"/></svg>
+            View on GitHub
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section contact" id="contact">
+  <div class="wrap">
+    <div class="contact__head section__head reveal">
+      <h2>Get in touch</h2>
+      <p class="lead">Open to opportunities, collaborations, and conversations about software, AI, and data.</p>
+    </div>
+
+    <form class="contact-form reveal" id="contactForm">
+      <div class="form-row">
+        <label for="cf-name">Name</label>
+        <input type="text" id="cf-name" name="name" autocomplete="name" required>
+      </div>
+      <div class="form-row">
+        <label for="cf-email">Email</label>
+        <input type="email" id="cf-email" name="email" autocomplete="email" required>
+      </div>
+      <div class="form-row">
+        <label for="cf-message">Message</label>
+        <textarea id="cf-message" name="message" rows="5" required></textarea>
+      </div>
+      <button type="submit" class="btn btn--primary">Send message</button>
+      <p class="form-note" id="formNote"></p>
+    </form>
+
+    <div class="connect reveal">
+      <p class="connect__label">Connect with me</p>
+      <div class="social-row">
+        <a class="btn btn--ghost" href="https://linkedin.com/in/karunyapriya1221" target="_blank" rel="noopener">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.27 2.38 4.27 5.47v6.27zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+          LinkedIn
+        </a>
+        <a class="btn btn--ghost" href="https://github.com/karunya-12345" target="_blank" rel="noopener">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55 0-.27-.01-1.16-.02-2.1-3.2.7-3.88-1.36-3.88-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.56-.29-5.25-1.28-5.25-5.7 0-1.26.45-2.29 1.18-3.1-.12-.29-.51-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.06 11.06 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.24 2.76.12 3.05.74.81 1.18 1.84 1.18 3.1 0 4.43-2.7 5.41-5.27 5.69.42.36.78 1.08.78 2.18 0 1.57-.01 2.84-.01 3.23 0 .3.2.66.79.55A10.52 10.52 0 0 0 23.5 12c0-6.35-5.15-11.5-11.5-11.5z"/></svg>
+          GitHub
+        </a>
+        <a class="btn btn--ghost" href="mailto:karunyapriya39@gmail.com">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M22 6l-10 7L2 6"/></svg>
+          Email
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer-block">
+  <div class="wrap">
+    <p class="footer-line">Location: Hyderabad, India &nbsp;|&nbsp; Email: karunyapriya39@gmail.com</p>
+    <p class="footer-tag">Software Engineering &amp; AI Enthusiast</p>
+    <p class="footer-copy">© 2026 K. Karunya Priya. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  // theme toggle
+  const root = document.body;
+  const toggle = document.getElementById('themeToggle');
+  toggle.addEventListener('click', () => {
+    const isDark = root.getAttribute('data-theme') === 'dark';
+    root.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    toggle.setAttribute('aria-checked', isDark ? 'true' : 'false');
+  });
+
+  // reveal on scroll
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const revealEls = document.querySelectorAll('.reveal');
+  if (reduced) {
+    revealEls.forEach(el => el.classList.add('in'));
+  } else {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+    }, { threshold: 0.15 });
+    revealEls.forEach(el => io.observe(el));
+  }
+
+  // contact form -> prefilled mailto (static site, no backend)
+  const contactForm = document.getElementById('contactForm');
+  const formNote = document.getElementById('formNote');
+  contactForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = document.getElementById('cf-name').value.trim();
+    const email = document.getElementById('cf-email').value.trim();
+    const message = document.getElementById('cf-message').value.trim();
+    const subject = encodeURIComponent('Portfolio inquiry from ' + name);
+    const body = encodeURIComponent(message + '\n\n— ' + name + ' (' + email + ')');
+    window.location.href = 'mailto:karunyapriya39@gmail.com?subject=' + subject + '&body=' + body;
+    formNote.textContent = 'Opening your email app to send this…';
+  });
+</script>
+
+</body>
+</html>
